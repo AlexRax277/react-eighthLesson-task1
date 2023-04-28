@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useRef} from 'react';
+import List from './components/List.js';
+import Details from './components/Details.js';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [list, setList] = useState();
+  const [id, setId] = useState();
+  const ref = useRef();
+
+  const handleClick = e => {
+    ref.current = e.target.id;
+    if (id !== ref.current) { setId(ref.current) };
+  };
+ 
+  return <div>
+    <List list={list} setList={setList} handleClick={handleClick}/>
+    {<Details id={id}/>}
+  </div>
 }
 
 export default App;
